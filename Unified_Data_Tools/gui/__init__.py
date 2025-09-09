@@ -1,8 +1,10 @@
-# gui/__init__.py
+# Unified_Data_Tools/gui/__init__.py
 """
 GUI модуль для Unified Data Tools
 """
+from .main_window import MainWindow
 
-from .main_window import UnifiedDataTools
+# Backward-compat: старое имя из монолита
+UnifiedDataTools = MainWindow
 
-__all__ = ['UnifiedDataTools']
+__all__ = ["MainWindow", "UnifiedDataTools"]

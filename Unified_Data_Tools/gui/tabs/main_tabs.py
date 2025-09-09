@@ -29,12 +29,9 @@ class MainTabs:
         self.create_tabs()
     
     def init_variables(self):
-        """Инициализация переменных для метрик."""
-        # TXT → Table
-        self.txt_metrics = MetricsPanel(None, {
-            "files": "Files: —",
-            "lines": "Lines: —"
-        })
+        """(metrics создаём прямо в соответствующих вкладках)"""
+        pass
+
         
         # Find Duplicates
         self.dup_metrics = MetricsPanel(None, {
@@ -141,8 +138,14 @@ class MainTabs:
         ttk.Button(btn_frame, text="Run", command=self.run_txt2table).grid(row=0, column=1)
         
         # Metrics
-        self.txt_metrics.frame.reparent = self.txt_tab
+        from gui.widgets.common import MetricsPanel
+        self.txt_metrics = MetricsPanel(self.txt_tab, {
+            "files": "Files: —",
+            "lines": "Lines: —"
+        })
         self.txt_metrics.grid(row=7, column=0, columnspan=3, sticky='w', **pad)
+
+
         
         self.txt_tab.columnconfigure(0, weight=1)
     
@@ -208,8 +211,14 @@ class MainTabs:
         ttk.Button(btn_frame, text="Run (save to file)", command=self.run_find_dups).grid(row=0, column=2)
         
         # Metrics
-        self.dup_metrics.frame.reparent = left
+        from gui.widgets.common import MetricsPanel
+        self.dup_metrics = MetricsPanel(left, {
+            "files": "Files: —", 
+            "lines": "Lines: —",
+            "found": "Duplicates found: —"
+        })
         self.dup_metrics.grid(row=5, column=0, columnspan=3, sticky='w', **pad)
+
         
         left.columnconfigure(0, weight=1)
         
@@ -261,8 +270,15 @@ class MainTabs:
         ttk.Button(btn_frame, text="Run", command=self.run_dedup).grid(row=0, column=1)
         
         # Metrics
-        self.dd_metrics.frame.reparent = self.dd_tab
+        from gui.widgets.common import MetricsPanel
+        self.dd_metrics = MetricsPanel(self.dd_tab, {
+            "files": "Files: —",
+            "before": "Lines Before: —",
+            "after": "Lines After: —",
+            "removed": "Removed: —"
+        })
         self.dd_metrics.grid(row=5, column=0, columnspan=3, sticky='w', **pad)
+
         
         self.dd_tab.columnconfigure(0, weight=1)
     
@@ -315,8 +331,14 @@ class MainTabs:
         ttk.Button(btn_frame, text="Find Email Duplicates (Live)", command=self.run_email_dupes).grid(row=0, column=1)
         
         # Metrics
-        self.ed_metrics.frame.reparent = self.ed_tab
+        from gui.widgets.common import MetricsPanel
+        self.ed_metrics = MetricsPanel(self.ed_tab, {
+            "files": "Files: —",
+            "lines": "Lines: —", 
+            "found": "Problem emails: —"
+        })
         self.ed_metrics.grid(row=5, column=0, columnspan=3, sticky='w', **pad)
+
         
         # Results area
         ttk.Label(self.ed_tab, text="Found duplicate emails:").grid(row=6, column=0, sticky="nw", **pad)
